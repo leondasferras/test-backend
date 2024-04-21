@@ -1,11 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Equal, Like, Between, MoreThan } from 'typeorm';
 import { Request } from './entities/request.entity'; 
+import { RequestStatus } from '../general/types'; 
 import { CreateRequestDto } from './dto/create-request.dto';
 import { UpdateRequestDto } from './dto/update-request.dto';
+import { GetRequestsFilterDto } from './dto/get-requests-filter-dto';
 
-import { RequestStatus } from 'src/general/types';
 
 @Injectable()
 export class RequestsService {
@@ -14,7 +15,7 @@ export class RequestsService {
     private requestRepository: Repository<Request>,
   ) {}
 
-  async create(request: CreateRequestDto) {
+  async create(request) {
     return await this.requestRepository.save(request);
   }
 
@@ -41,4 +42,52 @@ export class RequestsService {
     await this.requestRepository.delete({ id });
     return request;
   }
+
+  async getByFilter(filter: GetRequestsFilterDto) {
+
+    let request = {};
+
+    console.log("filter", filter);
+
+    if(filter.status){
+      request = {
+        ...request,
+        requestStatus: Equal(filter.status as RequestStatus)
+      }
+    }
+    
+    if(filter.atiCode){
+      request = {
+        ...request,
+        atiCode: Equal(filter.atiCode),
+      }
+    }
+    
+    if(filter.driverName){
+      request = {
+        ...request,
+        driverName: Equal(filter.driverName),
+      }
+    }
+
+    if(filter.companyName){
+      request = {
+        ...request,
+        companyName: Equal(filter.companyName),
+      }
+    }
+
+    if(filter.createdAt){
+      request = {
+        ...request,
+        createdAt: Between(filter.createdAt.start, filter.createdAt.end)
+      }
+    }
+
+  
+    console.log("request", request);
+    const requests = await this.requestRepository.findBy(request);
+    return requests;
+  }
 }
+
