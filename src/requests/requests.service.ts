@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Equal, Like, Between, MoreThan } from 'typeorm';
 import { Request } from './entities/request.entity'; 
 import { RequestStatus } from '../general/types'; 
-import { CreateRequestDto } from './dto/create-request.dto';
 import { UpdateRequestDto } from './dto/update-request.dto';
 import { GetRequestsFilterDto } from './dto/get-requests-filter-dto';
 
@@ -47,8 +46,6 @@ export class RequestsService {
 
     let request = {};
 
-    console.log("filter", filter);
-
     if(filter.status){
       request = {
         ...request,
@@ -84,8 +81,6 @@ export class RequestsService {
       }
     }
 
-  
-    console.log("request", request);
     const requests = await this.requestRepository.findBy(request);
     return requests;
   }

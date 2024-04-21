@@ -38,7 +38,6 @@ export class RequestsController {
   @ApiOkResponse(ResponseTypeRequestObject)
   @Post()
   create(@Body() request: CreateRequestDto) {
-    console.log(request)
     return this.requestsService.create(request);
   }
   
