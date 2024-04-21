@@ -1,6 +1,8 @@
-Backend на NEST.JS
+## test backend 
+Изпользованы: nest.js postgreSQL TypeORM      
 
-Настройки по умолчанию
+
+### Настройки по умолчанию
       type: 'postgres',  
       host: 'localhost',  
       port: 5432,  
@@ -8,3 +10,7 @@ Backend на NEST.JS
       password: 'password',  
       database: 'test_project',  
       synchronize: true, 
+
+
+### запускать в dev режиме !!!  
+nest start --watch
