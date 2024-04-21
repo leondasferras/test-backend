@@ -12,5 +12,8 @@
       synchronize: true, 
 
 
-### запускать в dev режиме !!!  
-nest start --watch
+### сборка проекта 
+nest build 
+
+### запуск проекта 
+nest start 
