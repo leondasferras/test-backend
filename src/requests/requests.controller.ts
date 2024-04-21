@@ -38,6 +38,7 @@ export class RequestsController {
   @ApiOkResponse(ResponseTypeRequestObject)
   @Post()
   create(@Body() request: CreateRequestDto) {
+    console.log(request)
     return this.requestsService.create(request);
   }
   
@@ -58,6 +59,7 @@ export class RequestsController {
   @ApiOperation({ summary: "Получить список заявок с учетом фильтра" })
   @Post('by-filter')
   findByFilter(@Body() request: GetRequestsFilterDto) {
+    console.log('findByFilter', request)
     return this.requestsService.getByFilter(request);
   }
 }

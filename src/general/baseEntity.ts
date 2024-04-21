@@ -2,11 +2,12 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  IntegerType,
 } from 'typeorm';
 
 export class BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: IntegerType;
 
   @CreateDateColumn()
   createdAt: Date;

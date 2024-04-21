@@ -19,12 +19,12 @@ export class RequestsService {
   }
 
   async findAll(): Promise<Request[]> {
-    return this.requestRepository.find();
+    return this.requestRepository.find({order:{id:'ASC'}});
   }
 
   async findOne(id: number) {
     const request = await this.requestRepository.findOneBy({id:id});
-    if (!request) throw new NotFoundException('Такой заявки не существует');
+    console.log(request)
     return request;
   }
 
@@ -81,7 +81,7 @@ export class RequestsService {
       }
     }
 
-    const requests = await this.requestRepository.findBy(request);
+    const requests = await this.requestRepository.find({where: request, order: {id:'ASC'}});
     return requests;
   }
 }
